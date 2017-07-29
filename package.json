@@ -4,6 +4,9 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
+    "android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "clean": "cd android && gradlew clean && cd ..",
+    "dev": "npm run clean && npm run android",
 		"test": "jest"
 	},
 	"dependencies": {
