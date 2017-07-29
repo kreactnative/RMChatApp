@@ -6,6 +6,8 @@ import {
   StatusBar
 } from 'react-native';
 
+import { StyleProvider } from 'native-base';
+
 import {
   createRouter,
   NavigationProvider,
@@ -19,6 +21,10 @@ import FriendsList from './Screens/FriendsList'
 import Chat from './Screens/Chat'
 import Channel from './Screens/Channel'
 
+import getTheme from '../native-base-theme/components';
+import platform from '../native-base-theme/variables/platform';
+
+
 const Router = createRouter(() => ({
   login: () => Login,
   signup: () => Signup,
@@ -31,12 +37,14 @@ const Router = createRouter(() => ({
 class RmChatApp extends Component {
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <StatusBar barStyle="light-content"/>
-        <NavigationProvider router={Router}>
-          <StackNavigation initialRoute={Router.getRoute('login') } />
-        </NavigationProvider>
-      </View>
+      <StyleProvider style={getTheme(platform)}>
+        <View style={{ flex: 1 }}>
+          <StatusBar barStyle="light-content"/>
+          <NavigationProvider router={Router}>
+            <StackNavigation initialRoute={Router.getRoute('login') } />
+          </NavigationProvider>
+        </View>
+      </StyleProvider>
     );
   }
 }
