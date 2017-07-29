@@ -3,24 +3,38 @@ import {
   Container,
   Header,
   Left,
-  Button,
+  List,
+  ListItem,
   Icon,
+  Button,
   Body,
   Title,
   Right,
   Content,
   Drawer,
-  Text
+  Text,
+  Switch
 } from 'native-base';
 import {
   StyleSheet,
   View,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 
 import styles from './styles';
 
-class SideBar extends Component {
+export default class SideBar extends Component {
+  constructor(props){
+    super(props)
+    this._handleNavigate = this._handleNavigate.bind(this);
+  }
+
+  _handleNavigate(activeRouteName){
+    if(this.props.navigator && activeRouteName)
+      this.props.navigator.push(activeRouteName);
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -36,12 +50,43 @@ class SideBar extends Component {
           bounces={false}
           style={styles.contentCotainer}
         >
-          <Button transparent>
-            <Text>Action</Text>
-          </Button>
+        <List>
+          <ListItem icon>
+            <Left>
+              <Icon style={styles.iconSideBar} name="plane" />
+            </Left>
+            <Body>
+              <TouchableOpacity onPress={()=>{this._handleNavigate('channel');}}>
+                <Text>Channel</Text>
+              </TouchableOpacity>
+            </Body>
+            <Right/>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon style={styles.iconSideBar} name="wifi" />
+            </Left>
+            <Body>
+              <TouchableOpacity onPress={() => {this._handleNavigate('friendsList');}}>
+                <Text>Friends</Text>
+              </TouchableOpacity>
+            </Body>
+            <Right/>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon style={styles.iconSideBar} name="person" />
+            </Left>
+            <Body>
+              <TouchableOpacity onPress={() => {this._handleNavigate('login');}}>
+                <Text>Logout</Text>
+              </TouchableOpacity>
+            </Body>
+            <Right/>
+          </ListItem>
+        </List>
         </Content>
       </Container>
     );
   }
 }
-export default SideBar;

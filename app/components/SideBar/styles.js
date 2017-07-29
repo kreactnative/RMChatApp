@@ -38,5 +38,8 @@ export default {
   textUserLogin:{
     fontSize: 14,
     color: 'white',
+  },
+  iconSideBar:{
+    color: '#4d4d4d',
   }
 };

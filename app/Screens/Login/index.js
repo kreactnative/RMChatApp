@@ -27,9 +27,10 @@ import styles from './styles';
 export default class Login extends Component {
     constructor(props) {
         super(props);
-        this.login=this.login.bind(this);
+        this._login = this._login.bind(this);
     }
-    login(){
+    _login(){
+      console.log(this.props);
       if(this.props.navigator)
         this.props.navigator.push('channel');
     }
@@ -54,7 +55,7 @@ export default class Login extends Component {
                   <Input />
                 </Item>
               </Form>
-              <Button block style={styles.buttonLogin} onPress={this.login}>
+              <Button block style={styles.buttonLogin} onPress={()=>{this._login();}}>
                 <Text>Sign In</Text>
               </Button>
             </Content>

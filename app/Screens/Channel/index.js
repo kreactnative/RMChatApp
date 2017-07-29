@@ -23,8 +23,8 @@ import SideBar from '../../components/SideBar';
 export default class Channel extends Component {
     constructor(props) {
         super(props);
-        this.openDrawer=this.openDrawer.bind(this);
-        this.closeDrawer=this.closeDrawer.bind(this);
+        this.openDrawer = this.openDrawer.bind(this);
+        this.closeDrawer = this.closeDrawer.bind(this);
     }
     openDrawer() {
       this._drawer._root.open();
@@ -36,7 +36,7 @@ export default class Channel extends Component {
         return (
           <Drawer
             ref={(ref) => { this._drawer = ref; }}
-            content={<SideBar navigator={this._navigator} />}
+            content={<SideBar navigator={this.props.navigator} />}
             onClose={() => this.closeDrawer()}
           >
           <Container>
@@ -55,7 +55,7 @@ export default class Channel extends Component {
               <Right />
             </Header>
             <Content>
-            
+
             </Content>
           </Container>
           </Drawer>
