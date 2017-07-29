@@ -5,10 +5,11 @@ import thunk from 'redux-thunk';
 import { persistStore } from 'redux-persist';
 import reducer from '../reducers';
 import promise from '../promise';
+import { rabbitmqMiddleware } from '../middlewares';
 
 export default function configureStore(onCompletion:()=>void):any {
   const enhancer = compose(
-    applyMiddleware(thunk, promise),
+    applyMiddleware(rabbitmqMiddleware, thunk, promise),
     devTools({
       name: 'rm-chat-app', realtime: true,
     }),
