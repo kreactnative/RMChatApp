@@ -4,15 +4,24 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"android": "node node_modules/react-native/local-cli/cli.js run-android",
+		"clean": "cd android && gradlew clean && cd ..",
+		"dev": "npm run clean && npm run android",
 		"test": "jest"
 	},
 	"dependencies": {
+		"@expo/ex-navigation": "^3.0.0",
+		"native-base": "^2.3.1",
 		"react": "16.0.0-alpha.12",
-		"react-native": "0.46.4"
+		"react-native": "0.46.4",
+		"react-native-easy-grid": "^0.1.15",
+		"react-native-rabbitmq": "https://github.com/kreactnative/react-native-rabbitmq.git",
+		"rn-viewpager": "^1.2.3"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
 		"babel-preset-react-native": "2.1.0",
+		"babel-preset-react-native-stage-0": "^1.0.1",
 		"jest": "20.0.4",
 		"react-test-renderer": "16.0.0-alpha.12"
 	},
