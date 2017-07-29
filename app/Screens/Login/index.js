@@ -22,6 +22,8 @@ import {
 
 import styles from './styles';
 
+
+
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -35,11 +37,11 @@ export default class Login extends Component {
         return (
           <Container style={styles.container}>
             <Header style={styles.header}>
-              <Left/>
-              <Body>
-                <Icon name='person' style={{width:250, paddingLeft:70, fontSize: 200, color: 'white'}}/>
+              <Left style={styles.leftContainer}/>
+              <Body style={styles.bodyContainer}>
+                <Icon name='person' style={styles.logo}/>
               </Body>
-              <Right />
+              <Right style={styles.leftContainer} />
             </Header>
             <Content>
               <Form>
