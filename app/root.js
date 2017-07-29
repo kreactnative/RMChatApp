@@ -14,6 +14,8 @@ import {
   StackNavigation
 } from '@expo/ex-navigation';
 
+import { Provider } from 'react-redux';
+
 import Login from './Screens/Login'
 import Signup from './Screens/Signup'
 import ForgetPassword from './Screens/ForgetPassword'
@@ -23,6 +25,8 @@ import Channel from './Screens/Channel'
 
 import getTheme from '../native-base-theme/components';
 import platform from '../native-base-theme/variables/platform';
+
+import configureStore from './config/configureStore';
 
 
 const Router = createRouter(() => ({
@@ -36,15 +40,18 @@ const Router = createRouter(() => ({
 
 class RmChatApp extends Component {
   render() {
+    const store = configureStore();
     return (
-      <StyleProvider style={getTheme(platform)}>
-        <View style={{ flex: 1 }}>
-          <StatusBar barStyle="light-content"/>
-          <NavigationProvider router={Router}>
-            <StackNavigation initialRoute={Router.getRoute('login') } />
-          </NavigationProvider>
-        </View>
-      </StyleProvider>
+      <Provider store={ store }>
+        <StyleProvider style={getTheme(platform)}>
+          <View style={{ flex: 1 }}>
+            <StatusBar barStyle="light-content"/>
+            <NavigationProvider router={Router}>
+              <StackNavigation initialRoute={Router.getRoute('login') } />
+            </NavigationProvider>
+          </View>
+        </StyleProvider>
+      </Provider>
     );
   }
 }
