@@ -54,7 +54,7 @@ export default class Login extends Component {
                   <Input />
                 </Item>
               </Form>
-              <Button block style={{ margin: 15, marginTop: 50 }} onPress={this.login}>
+              <Button block style={styles.buttonLogin} onPress={this.login}>
                 <Text>Sign In</Text>
               </Button>
             </Content>

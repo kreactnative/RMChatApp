@@ -9,30 +9,34 @@ export default {
     backgroundColor: '#FBFAFA',
 
   },
-  header:{
-    height: height/2.5,
-
+  headerContainer:{
+    height: height/3,
+    top: -1,
   },
   leftContainer:{
-    flex:1,
+    flex: 1,
   },
   rightContainer:{
-    flex:1,
+    flex: 1,
   },
   bodyContainer:{
-    //width:250,
-    //paddingLeft:70,
     flex:1,
-    flexDirection:'row',
     alignItems:'center',
     justifyContent:'center',
+    //borderWidth: 3,
+    width: width-20,
+  },
+  contentCotainer:{
+    flex: 1,
+    backgroundColor: '#fff',
+    top: -1,
   },
   logo:{
-    fontSize: 150,
+    fontSize: 100,
     color: 'white',
   },
-  buttonLogin:{
-    margin: 15,
-    marginTop: 50,
+  textUserLogin:{
+    fontSize: 14,
+    color: 'white',
   }
 };

@@ -18,13 +18,23 @@ import {
   ScrollView
 } from 'react-native';
 
+import styles from './styles';
+
 class SideBar extends Component {
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
+        <Header style={styles.headerContainer}>
+          <Body style={styles.bodyContainer}>
+            <Icon name='person' style={styles.logo}/>
+            <View>
+              <Text style={styles.textUserLogin}>kajaxnet@gmail.com</Text>
+            </View>
+          </Body>
+        </Header>
         <Content
           bounces={false}
-          style={{ flex: 1, backgroundColor: '#fff', top: -1 }}
+          style={styles.contentCotainer}
         >
           <Button transparent>
             <Text>Action</Text>
