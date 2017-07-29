@@ -41,6 +41,7 @@ const Router = createRouter(() => ({
 class RmChatApp extends Component {
   render() {
     const store = configureStore();
+    console.log(store);
     return (
       <Provider store={ store }>
         <StyleProvider style={getTheme(platform)}>

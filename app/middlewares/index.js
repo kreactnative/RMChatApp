@@ -20,6 +20,7 @@ let queueId = +new Date + '';
 
 export function rabbitmqMiddleware(store) {
   return next => action => {
+    console.log(action.type);
     /*if (socket && action.type === actions.ADD_MESSAGE) {
       socket.emit('message', action.message);
     }*/
@@ -29,6 +30,7 @@ export function rabbitmqMiddleware(store) {
 }
 
 export default function(store) {
+  console.log("start Rabbitmq middlewares");
   connection.connect();
 
   connection.on('error', (event) => {

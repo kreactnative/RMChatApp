@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import { persistStore } from 'redux-persist';
 import reducer from '../reducers';
 import promise from '../promise';
-import { rabbitmqMiddleware } from '../middlewares';
+import startRabbitMq, { rabbitmqMiddleware } from '../middlewares';
 
 export default function configureStore(onCompletion:()=>void):any {
   const enhancer = compose(
@@ -17,5 +17,6 @@ export default function configureStore(onCompletion:()=>void):any {
 
   const store = createStore(reducer, enhancer);
   persistStore(store, { storage: AsyncStorage }, onCompletion);
+  startRabbitMq(store);
   return store;
 }
