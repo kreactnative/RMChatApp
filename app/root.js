@@ -17,13 +17,15 @@ import Signup from './Screens/Signup'
 import ForgetPassword from './Screens/ForgetPassword'
 import FriendsList from './Screens/FriendsList'
 import Chat from './Screens/Chat'
+import Channel from './Screens/Channel'
 
 const Router = createRouter(() => ({
   login: () => Login,
   signup: () => Signup,
   forgetPassword: () => ForgetPassword,
   friendsList: () => FriendsList,
-  chat: () => Chat
+  chat: () => Chat,
+  channel: () => Channel,
 }));
 
 class RmChatApp extends Component {
