@@ -50,7 +50,7 @@ export default class Channel extends Component {
                 </Button>
               </Left>
               <Body>
-                <Title>Channel List</Title>
+                <Title>Channels</Title>
               </Body>
               <Right />
             </Header>
