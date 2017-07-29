@@ -3,8 +3,23 @@ import {
     View,
     StyleSheet
 } from 'react-native';
-import { Container, Header, Content, Left, Body, Right, Button, Icon, Title } from 'native-base';
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Button,
+  Item,
+  Label,
+  Input,
+  Body,
+  Left,
+  Right,
+  Icon,
+  Form,
+  Text
+} from "native-base";
+
 import styles from './styles';
 
 export default class Login extends Component {
@@ -13,19 +28,28 @@ export default class Login extends Component {
     }
     render() {
         return (
-          <Container>
+          <Container style={styles.container}>
             <Header style={styles.header}>
               <Left/>
               <Body>
-                <Title>RMChat</Title>
+                <Icon name='person' style={{width:250, paddingLeft:70, fontSize: 200, color: 'white'}}/>
               </Body>
-              <Right/>
+              <Right />
             </Header>
             <Content>
-            <Grid>
-              <Row></Row>
-              <Row></Row>
-            </Grid>
+              <Form>
+                <Item floatingLabel>
+                  <Label>Username</Label>
+                  <Input />
+                </Item>
+                <Item floatingLabel last>
+                  <Label>Password</Label>
+                  <Input />
+                </Item>
+              </Form>
+              <Button block style={{ margin: 15, marginTop: 50 }}>
+                <Text>Sign In</Text>
+              </Button>
             </Content>
           </Container>
         );

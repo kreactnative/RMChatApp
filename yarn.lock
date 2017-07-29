@@ -3368,6 +3368,14 @@ react-native-easy-grid@0.1.15, react-native-easy-grid@^0.1.15:
     prop-types "^15.5.10"
     react-timer-mixin "^0.13.3"
 
+react-native-rabbitmq@^0.5.7:
+  version "0.5.7"
+  resolved "https://registry.yarnpkg.com/react-native-rabbitmq/-/react-native-rabbitmq-0.5.7.tgz#057655ce83b146f93f8840254d71382fcc5bce71"
+
+"react-native-rabbitmq@https://github.com/kreactnative/react-native-rabbitmq.git":
+  version "0.5.7"
+  resolved "https://github.com/kreactnative/react-native-rabbitmq.git#be3f7f410d333688efaeec416b4ffde54cb3c67e"
+
 react-native-tab-view@^0.0.61:
   version "0.0.61"
   resolved "https://registry.yarnpkg.com/react-native-tab-view/-/react-native-tab-view-0.0.61.tgz#9f5446c9ad33158b87f0bccf5004fbff79ca1f92"

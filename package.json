@@ -14,7 +14,8 @@
 		"native-base": "^2.3.1",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.46.4",
-		"react-native-easy-grid": "^0.1.15"
+		"react-native-easy-grid": "^0.1.15",
+		"react-native-rabbitmq": "https://github.com/kreactnative/react-native-rabbitmq.git"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
