@@ -41,7 +41,7 @@ export default function(state = initialState, action) {
       });
     case RABBITMQ_ON_MESSAGE:
       var messages = state.publicMessages;
-      messages.unshift(action.payload.message);
+      messages.push(action.payload.message);
       return Object.assign({}, state, {
         publicMessages: messages
       });

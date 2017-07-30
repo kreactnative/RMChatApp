@@ -119,7 +119,7 @@ export default function(store) {
       avatar: 'http://img1.jurko.net/avatar_6736.gif',
       type: RABBITMQ_TYPE.ONLINE,
       routing_key: routing_key,
-      //message: 'queueId : ' + queueId + ' is online',
+      message: 'queueId : ' + queueId + ' is online',
       createAt: now
     };
 
