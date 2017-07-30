@@ -6,6 +6,15 @@ import {
 } from 'react-native-rabbitmq';
 
 import DeviceInfo from 'react-native-device-info';
+
+import moment from 'moment';
+
+
+import { RABBITMQ_TYPE } from '../util/constant';
+
+import { json2Str, str2Json } from '../util';
+
+
 let device={
   uniqueID: DeviceInfo.getUniqueID(),
   manufacturer: DeviceInfo.getManufacturer(),
@@ -49,8 +58,10 @@ export function rabbitmqMiddleware(store) {
 
 export default function(store) {
   console.log("start Rabbitmq middlewares");
-  connection.connect();
-  store.dispatch(actions.connectRabbitAttempt({}));
+  if(connected ==false){
+    connection.connect();
+    store.dispatch(actions.connectRabbitAttempt({}));
+  }
   connection.on('error', (event) => {
     connected = false;
     store.dispatch(actions.connectRabbitFailed({
@@ -99,6 +110,20 @@ export default function(store) {
     let properties = {
       expiration: 10000,
     }
-    exchange.publish('queueId : ' + queueId + ' is online', routing_key, properties);
+
+    const now = moment().format();
+    // First Join Message;
+    const exchangeMessage = {
+      name: queueId,
+      user: queueId,
+      avatar: 'http://img1.jurko.net/avatar_6736.gif',
+      type: RABBITMQ_TYPE.ONLINE,
+      routing_key: routing_key,
+      //message: 'queueId : ' + queueId + ' is online',
+      createAt: now
+    };
+
+
+    exchange.publish(json2Str(exchangeMessage), queueId, properties);
   });
 }
