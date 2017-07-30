@@ -50,7 +50,7 @@ export default class RabbitLog extends Component {
                 </Button>
               </Left>
               <Body>
-                <Title>Rabbit Log</Title>
+                <Title>Rabbit Logs</Title>
               </Body>
               <Right />
             </Header>

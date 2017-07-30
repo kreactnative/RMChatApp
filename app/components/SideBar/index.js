@@ -90,7 +90,7 @@ export default class SideBar extends Component {
             </Left>
             <Body>
               <TouchableOpacity onPress={() => {this._handleNavigate('rabbitlog');}}>
-                <Text>RabbitMQ Log</Text>
+                <Text>Rabbit Logs</Text>
               </TouchableOpacity>
             </Body>
             <Right/>

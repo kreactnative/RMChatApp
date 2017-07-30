@@ -41,6 +41,12 @@ const Router = createRouter(() => ({
 }));
 
 class RmChatApp extends Component {
+  constructor(props){
+    super(props);
+    console.disableYellowBox = true;
+    console.ignoredYellowBox = true;
+    console.ignoredYellowBox = ['Warning: Each', "Warning: Failed prop type"];
+  }
   render() {
     const store = configureStore();
     console.log(store);
