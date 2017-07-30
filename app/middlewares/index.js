@@ -37,10 +37,11 @@ let connected = false;
 
 export function rabbitmqMiddleware(store) {
   return next => action => {
-    //console.log(action.type);
-    /*if (socket && action.type === actions.ADD_MESSAGE) {
-      socket.emit('message', action.message);
-    }*/
+    if (connection && exchange && queue && action.type === actions.RABBITMQ_SEND_MESSAGE) {
+        let routing_key = 'react-native-queue';
+  			let exchange_name = 'react-native-exchange';
+  			queue.publish(action.payload, exchange_name, routing_key)
+    }
 
     return next(action);
   };

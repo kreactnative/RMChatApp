@@ -16,12 +16,13 @@ import {
 
 import { Provider } from 'react-redux';
 
-import Login from './Screens/Login'
-import Signup from './Screens/Signup'
-import ForgetPassword from './Screens/ForgetPassword'
-import FriendsList from './Screens/FriendsList'
-import Chat from './Screens/Chat'
-import Channel from './Screens/Channel'
+import Login from './Screens/Login';
+import Signup from './Screens/Signup';
+import ForgetPassword from './Screens/ForgetPassword';
+import FriendsList from './Screens/FriendsList';
+import Chat from './Screens/Chat';
+import Channel from './Screens/Channel';
+import RabbitLog from './Screens/RabbitLog';
 
 import getTheme from '../native-base-theme/components';
 import platform from '../native-base-theme/variables/platform';
@@ -36,6 +37,7 @@ const Router = createRouter(() => ({
   friendsList: () => FriendsList,
   chat: () => Chat,
   channel: () => Channel,
+  rabbitlog: () => RabbitLog,
 }));
 
 class RmChatApp extends Component {

@@ -2,13 +2,6 @@ import type { Action } from '../actions/types';
 import { LOGIN_ATTEMPT, LOGIN_SUCCESS, LOGIN_FAILED } from '../actions/login';
 import {AsyncStorage} from 'react-native';
 
-export type State = {
-  isLoggedIn: boolean,
-  token: string,
-  msg: string,
-  attempting: boolean
-};
-
 const initialState = {
   isLoggedIn: false,
   user: null,

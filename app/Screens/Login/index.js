@@ -32,7 +32,7 @@ export default class Login extends Component {
     _login(){
       console.log(this.props);
       if(this.props.navigator)
-        this.props.navigator.push('channel');
+        this.props.navigator.push('rabbitlog');
     }
     render() {
         return (
