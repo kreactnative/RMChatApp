@@ -73,8 +73,8 @@ class Chat extends Component {
         this.props.rabbitmq.publicMessages.map((d, i) => {
           const messageServer=str2Json(d);
           let message={
-            text: (d.message) ? d.message : d ,
-            position: (d.type==1) ? 'center' : 'left',
+            text: (messageServer && messageServer.message!=undefined) ? messageServer.message : d ,
+            position: (messageServer && messageServer.type==1) ? 'center' : 'left',
             date: new Date(2016, 3, 14, 13, 0),
             uniqueId: Math.round(Math.random() * 10000),
           }

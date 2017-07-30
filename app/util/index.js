@@ -11,5 +11,5 @@ export function str2Json(str) {
   if(isJson(str))
     return JSON.parse(str);
   else
-    return {};
+    return undefined;
 }
