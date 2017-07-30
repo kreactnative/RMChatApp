@@ -74,7 +74,7 @@ class Chat extends Component {
           const messageServer=str2Json(d);
           let message={
             text: (messageServer && messageServer.message!=undefined) ? messageServer.message : d ,
-            position: (messageServer && messageServer.type==1) ? 'center' : 'left',
+            position: (messageServer && messageServer.type==1) ? 'center' : ((i%2)==0) ? 'left':'right',
             date: new Date(2016, 3, 14, 13, 0),
             uniqueId: Math.round(Math.random() * 10000),
           }
