@@ -3,6 +3,8 @@ import {
   Container,
   Header,
   Left,
+  List,
+  ListItem,
   Button,
   Icon,
   Body,
@@ -10,21 +12,28 @@ import {
   Right,
   Content,
   Drawer,
-  Text
+  Text,
+  Thumbnail,
 } from 'native-base';
+
 import {
   StyleSheet,
   View,
   ScrollView
 } from 'react-native';
 
+import { connect } from 'react-redux';
+
 import SideBar from '../../components/SideBar';
 
-export default class RabbitLog extends Component {
+import { rabbitSendMessage } from '../../actions/rabbitmq';
+
+class RabbitLog extends Component {
     constructor(props) {
         super(props);
         this.openDrawer = this.openDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
+        this._renderListRabbitLog = this._renderListRabbitLog.bind(this);
     }
     openDrawer() {
       this._drawer._root.open();
@@ -32,7 +41,32 @@ export default class RabbitLog extends Component {
     closeDrawer() {
       this._drawer._root.close();
     }
+
+    _renderListRabbitLog (rabbitmq){
+      console.log(rabbitmq);
+      if(rabbitmq && rabbitmq.publicMessages){
+        console.log(rabbitmq.publicMessages);
+        return rabbitmq.publicMessages.map((d, i) => {
+          return (
+            <ListItem avatar key={i}>
+              <Left>
+                <Thumbnail source={{ uri: 'http://img1.jurko.net/avatar_6736.gif' }} />
+              </Left>
+              <Body>
+                <Text>Kumar Pratik</Text>
+                <Text note>{d}</Text>
+              </Body>
+              <Right>
+                <Text note>3:43 pm</Text>
+              </Right>
+            </ListItem>
+           )
+        })
+      }
+      return null;
+    }
     render() {
+      console.log(this.props.rabbitmq);
         return (
           <Drawer
             ref={(ref) => { this._drawer = ref; }}
@@ -55,10 +89,24 @@ export default class RabbitLog extends Component {
               <Right />
             </Header>
             <Content>
-
+              <List>
+                { this._renderListRabbitLog(this.props.rabbitmq) }
+              </List>
             </Content>
           </Container>
           </Drawer>
         );
     }
 }
+
+const bindActions = (dispatch) => ({
+  rabbitSendMessage: message => dispatch(rabbitSendMessage(message)),
+});
+
+const mapStateToProps = (state) => {
+  return {
+    rabbitmq: state.rabbitmq,
+  }
+};
+
+export default connect(mapStateToProps, bindActions)(RabbitLog);
