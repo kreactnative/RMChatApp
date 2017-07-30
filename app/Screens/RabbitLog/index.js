@@ -26,7 +26,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 
 import SideBar from '../../components/SideBar';
-import { GiftedChat } from 'react-native-gifted-chat';
+
 
 import { rabbitSendMessage } from '../../actions/rabbitmq';
 import { json2Str, str2Json } from '../../util';
@@ -34,32 +34,11 @@ import { json2Str, str2Json } from '../../util';
 class RabbitLog extends Component {
     constructor(props) {
         super(props);
-        this.state={
-          messages: [],
-        };
         this.closeDrawer = this.closeDrawer.bind(this);
         this._renderListRabbitLog = this._renderListRabbitLog.bind(this);
     }
     componentWillMount() {
-      this.setState({
-        messages: [
-          {
-            _id: 1,
-            text: 'Hello developer',
-            createdAt: new Date(),
-            user: {
-              _id: 2,
-              name: 'React Native',
-              avatar: 'https://facebook.github.io/react/img/logo_og.png',
-            },
-          },
-        ],
-      });
-    }
-    onSend(messages = []) {
-      this.setState((previousState) => ({
-        messages: GiftedChat.append(previousState.messages, messages),
-      }));
+
     }
     openDrawer() {
       this._drawer._root.open();
@@ -79,7 +58,7 @@ class RabbitLog extends Component {
                 <Thumbnail source={{ uri: 'http://img1.jurko.net/avatar_6736.gif' }} />
               </Left>
               <Body>
-                <Text>Kumar Pratik</Text>
+                <Text>test test</Text>
                 <Text note>{d}</Text>
               </Body>
               <Right>
@@ -92,13 +71,7 @@ class RabbitLog extends Component {
       return null;
     }
     render() {
-      console.log(this.props.rabbitmq.publicMessages);
         return (
-          <Drawer
-            ref={(ref) => { this._drawer = ref; }}
-            content={<SideBar navigator={this.props.navigator} />}
-            onClose={() => this.closeDrawer()}
-          >
           <Container>
             <Header>
               <Left>
@@ -115,20 +88,11 @@ class RabbitLog extends Component {
               <Right />
             </Header>
             <Content>
-              {/*<List>
+              <List>
                 { this._renderListRabbitLog(this.props.rabbitmq) }
               </List>
-              */}
-              <GiftedChat
-                messages={this.state.messages}
-                onSend={(messages) => this.onSend(messages)}
-                user={{
-                  _id: 1,
-                }}
-              />
             </Content>
           </Container>
-          </Drawer>
         );
     }
 }
