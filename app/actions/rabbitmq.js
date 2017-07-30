@@ -20,7 +20,7 @@ export function rabbitMessages(payload): Action {
   };
 };
 
-export function connectRabbitAttemp(payload): Action {
+export function connectRabbitAttempt(payload): Action {
   return {
     type: RABBITMQ_CONNECT_ATTEMPT,
     payload

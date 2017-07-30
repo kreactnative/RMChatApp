@@ -1,4 +1,6 @@
 rootProject.name = 'RMChatApp'
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
 include ':react-native-rabbitmq'
 project(':react-native-rabbitmq').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-rabbitmq/android')
 

@@ -5,8 +5,23 @@ import {
   Queue
 } from 'react-native-rabbitmq';
 
+import DeviceInfo from 'react-native-device-info';
+let device={
+  uniqueID: DeviceInfo.getUniqueID(),
+  manufacturer: DeviceInfo.getManufacturer(),
+  model: DeviceInfo.getModel(),
+  systemName: DeviceInfo.getSystemName(),
+  systemVersion: DeviceInfo.getSystemVersion(),
+  bundleId: DeviceInfo.getBundleId(),
+  buildNumber: DeviceInfo.getBuildNumber(),
+  version: DeviceInfo.getVersion(),
+  readableVersion: DeviceInfo.getReadableVersion(),
+};
+console.log("Device Info", device);
+
+// 128.199.250.80
 const config = {
-  host: '192.168.1.2',
+  host: '128.199.250.80',
   port: 5672,
   username: 'admin',
   password: '56255625',
@@ -16,11 +31,13 @@ const config = {
 let connection = new Connection(config);
 let queue;
 let exchange;
-let queueId = +new Date + '';
+let queueId = DeviceInfo.getUniqueID() || (+new Date + '');
+console.log(queueId);
+let connected = false;
 
 export function rabbitmqMiddleware(store) {
   return next => action => {
-    console.log(action.type);
+    //console.log(action.type);
     /*if (socket && action.type === actions.ADD_MESSAGE) {
       socket.emit('message', action.message);
     }*/
@@ -32,15 +49,20 @@ export function rabbitmqMiddleware(store) {
 export default function(store) {
   console.log("start Rabbitmq middlewares");
   connection.connect();
-
+  store.dispatch(actions.connectRabbitAttempt({}));
   connection.on('error', (event) => {
-    console.log('error', event);
-    store.dispatch(actions.connectRabbitFailed(event));
+    connected = false;
+    store.dispatch(actions.connectRabbitFailed({
+      deviceInfo: device
+    }));
   });
 
   connection.on('connected', (event) => {
     console.log('connected', event);
-    store.dispatch(actions.connectRabbitSuccess(event));
+    connected = true;
+    store.dispatch(actions.connectRabbitSuccess({
+      deviceInfo: device
+    }));
     queue = new Queue(connection, {
       name: queueId,
       durable: false,
@@ -68,8 +90,8 @@ export default function(store) {
     });
 
     queue.on('messages', (data) => {
-      console.log('messages', data);
-      store.dispatch(actions.rabbitMessages(data));
+      //console.log('messages', data);
+      //store.dispatch(actions.rabbitMessages(data));
     });
     let routing_key = 'react-native-queue';
 

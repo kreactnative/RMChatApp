@@ -12,11 +12,13 @@
 	"dependencies": {
 		"@expo/ex-navigation": "^3.0.0",
 		"apisauce": "^0.14.0",
+		"is-json": "^2.0.1",
 		"lodash": "^4.17.4",
 		"moment": "^2.18.1",
 		"native-base": "^2.3.1",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.46.4",
+		"react-native-device-info": "^0.10.2",
 		"react-native-easy-grid": "^0.1.15",
 		"react-native-rabbitmq": "https://github.com/kreactnative/react-native-rabbitmq.git",
 		"react-redux": "^5.0.5",
