@@ -30,7 +30,7 @@ console.log("Device Info", device);
 
 // 128.199.250.80
 const config = {
-  host: '128.199.250.80',
+  host: '192.168.1.3',
   port: 5672,
   username: 'admin',
   password: '56255625',
@@ -40,15 +40,16 @@ const config = {
 let connection = new Connection(config);
 let queue;
 let exchange;
-let queueId = DeviceInfo.getUniqueID() || (+new Date + '');
+let queueId = device.uniqueID || (+new Date + '');
 console.log(queueId);
 let connected = false;
 
 export function rabbitmqMiddleware(store) {
   return next => action => {
     if (connection && exchange && queue && action.type === actions.RABBITMQ_SEND_MESSAGE) {
-        let routing_key = 'react-native-queue';
+        let routing_key = queue.name;//'react-native-queue';
   			let exchange_name = 'react-native-exchange';
+        console.log(routing_key);
   			queue.publish(action.payload, exchange_name, routing_key)
     }
 
@@ -58,10 +59,10 @@ export function rabbitmqMiddleware(store) {
 
 export default function(store) {
   console.log("start Rabbitmq middlewares");
-  if(connected ==false){
-    connection.connect();
-    store.dispatch(actions.connectRabbitAttempt({}));
-  }
+  //if(connected ==false){
+  connection.connect();
+  store.dispatch(actions.connectRabbitAttempt({}));
+  //}
   connection.on('error', (event) => {
     connected = false;
     store.dispatch(actions.connectRabbitFailed({
@@ -111,7 +112,7 @@ export default function(store) {
       expiration: 10000,
     }
 
-    const now = moment().format();
+    const now = moment().format('YYYY-MM-DD HH:mm:ss');
     // First Join Message;
     const exchangeMessage = {
       name: queueId,
@@ -120,7 +121,8 @@ export default function(store) {
       type: RABBITMQ_TYPE.ONLINE,
       routing_key: routing_key,
       message: 'queueId : ' + queueId + ' is online',
-      createAt: now
+      createAt: now,
+      position: 'left',
     };
 
 

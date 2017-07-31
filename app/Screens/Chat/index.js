@@ -29,6 +29,8 @@ import { json2Str, str2Json } from '../../util';
 
 import SideBar from '../../components/SideBar';
 
+import styles from './styles';
+
 class Chat extends Component {
     constructor(props) {
         super(props);
@@ -37,29 +39,23 @@ class Chat extends Component {
         }
         this.openDrawer = this.openDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
+        this.handleSend = this.handleSend.bind(this);
     }
     componentWillMount() {
-      this.setState({
-        messages:[
-          {
-            text: 'ทดสอบภาษาไทย?',
-            name: 'React-Bot',
-            image: {uri: 'https://facebook.github.io/react/img/logo_og.png'},
-            position: 'left',
-            date: new Date(2016, 3, 14, 13, 0),
-            uniqueId: Math.round(Math.random() * 10000),
-          },
-          {
-            text: "Yes, and I use Gifted Messenger!",
-            name: 'Awesome Developer',
-            image: null,
-            position: 'right',
-            date: new Date(2016, 3, 14, 13, 1),
-            uniqueId: Math.round(Math.random() * 10000),
-          },
 
-        ]
-      })
+    }
+    handleSend(message = {}, rowID = null) {
+     console.log(message,rowID);
+     const now = moment().format();
+     const rabbitMessage={
+       type: 2,
+       message : message.text,
+       position : 'right',
+       createAt: now,
+       uniqueId: this.props.rabbitmq.deviceInfo.uniqueID,
+     }
+     //console.log(this.props);
+     this.props.rabbitSendMessage(json2Str(rabbitMessage));
     }
     openDrawer() {
       this._drawer._root.open();
@@ -70,13 +66,17 @@ class Chat extends Component {
     render() {
       let messages=[];
       if(this.props.rabbitmq && this.props.rabbitmq.publicMessages){
+        const userId=this.props.rabbitmq.deviceInfo.uniqueID;
         this.props.rabbitmq.publicMessages.map((d, i) => {
           const messageServer=str2Json(d);
+
           let message={
-            text: (messageServer && messageServer.message!=undefined) ? messageServer.message : d ,
-            position: (messageServer && messageServer.type==1) ? 'center' : ((i%2)==0) ? 'left':'right',
-            date: new Date(2016, 3, 14, 13, 0),
-            uniqueId: Math.round(Math.random() * 10000),
+            text: messageServer.message,
+            position: (messageServer.uniqueId!=userId && messageServer.type!=1) ? 'left' : messageServer.position,
+            date: moment(messageServer.createAt,'YYYY-MM-DD HH:mm:ss').toDate(),
+            uniqueId: messageServer.uniqueId,
+            name:  messageServer.uniqueId,
+            image: {uri: 'https://facebook.github.io/react/img/logo_og.png'},
           }
 
           messages.push(message);
@@ -103,28 +103,36 @@ class Chat extends Component {
               </Body>
               <Right />
             </Header>
-            <Content>
+            <Content style={styles.messageContainer}>
             <GiftedMessenger
                 ref={(c) => this._GiftedMessenger = c}
                 styles={{
                   container: {
                     width: Dimensions.get('window').width,
                   },
+                  text: {
+                    //backgroundColor: '#03a9f4',
+                    //color : 'white'
+                  },
+                  bubbleLeft: {
+                    backgroundColor: '#fff',
+                    marginRight: 70,
+                  },
                   bubbleRight: {
+                    backgroundColor: '#007aff',
                     marginLeft: 70,
-                    backgroundColor: "#007aff",
                   },
                 }}
                 autoFocus={false}
+                displayNames={true}
                 messages={messages}
                 handleSend={() => {}} //push message to json stack trace or locally save it
                 onErrorButtonPress={() => {}}
                 maxHeight={Dimensions.get('window').height - 90}
-
                 loadEarlierMessagesButton={false}
                 onLoadEarlierMessages={() => {}}
-
-                senderName="Becky"
+                handleSend={(message,rowID)=> { this.handleSend(message,rowID); }}
+                senderName={this.props.rabbitmq.deviceInfo.uniqueID}
                 senderImage={null}
                 onImagePress={() => {}}
                 displayNames={true}
@@ -133,8 +141,7 @@ class Chat extends Component {
                 handlePhonePress={() => {}}
                 handleUrlPress={() => {}}
                 handleEmailPress={() => {}}
-
-                isLoadingEarlierMessages={false}
+                isLoadingEarlierMessages={true}
               />
             </Content>
           </Container>

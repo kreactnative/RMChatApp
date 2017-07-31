@@ -27,12 +27,7 @@ export default {
     alignItems:'center',
     justifyContent:'center',
   },
-  logo:{
-    fontSize: 150,
-    color: 'white',
-  },
-  buttonLogin:{
-    margin: 15,
-    marginTop: 50,
+  messageContainer:{
+    backgroundColor: '#eeeeee'
   }
 };
