@@ -15,16 +15,47 @@ import {
 import {
   StyleSheet,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions,
+  FlatList
 } from 'react-native';
+
+import GiftedMessenger from 'react-native-gifted-messenger'
+import moment from 'moment';
+import { connect } from 'react-redux';
+
+import { rabbitSendMessage } from '../../actions/rabbitmq';
+import { json2Str, str2Json } from '../../util';
 
 import SideBar from '../../components/SideBar';
 
-export default class Chat extends Component {
+import styles from './styles';
+
+class Chat extends Component {
     constructor(props) {
         super(props);
+        this.state={
+          messages: []
+        }
         this.openDrawer = this.openDrawer.bind(this);
         this.closeDrawer = this.closeDrawer.bind(this);
+        this.handleSend = this.handleSend.bind(this);
+    }
+    componentWillMount() {
+
+    }
+    handleSend(message = {}, rowID = null) {
+     console.log(message,rowID);
+     const now = moment().format();
+     const rabbitMessage={
+       type: 2,
+       message : message.text,
+       position : 'right',
+       createAt: now,
+       uniqueId: this.props.rabbitmq.deviceInfo.uniqueID,
+     }
+     //console.log(this.props);
+     this.props.rabbitSendMessage(json2Str(rabbitMessage));
     }
     openDrawer() {
       this._drawer._root.open();
@@ -33,6 +64,24 @@ export default class Chat extends Component {
       this._drawer._root.close();
     }
     render() {
+      let messages=[];
+      if(this.props.rabbitmq && this.props.rabbitmq.publicMessages){
+        const userId=this.props.rabbitmq.deviceInfo.uniqueID;
+        this.props.rabbitmq.publicMessages.map((d, i) => {
+          const messageServer=str2Json(d);
+
+          let message={
+            text: messageServer.message,
+            position: (messageServer.uniqueId!=userId && messageServer.type!=1) ? 'left' : messageServer.position,
+            date: moment(messageServer.createAt,'YYYY-MM-DD HH:mm:ss').toDate(),
+            uniqueId: messageServer.uniqueId,
+            name:  messageServer.uniqueId,
+            image: {uri: 'https://facebook.github.io/react/img/logo_og.png'},
+          }
+
+          messages.push(message);
+        })
+      }
         return (
           <Drawer
             ref={(ref) => { this._drawer = ref; }}
@@ -54,11 +103,60 @@ export default class Chat extends Component {
               </Body>
               <Right />
             </Header>
-            <Content>
-
+            <Content style={styles.messageContainer}>
+            <GiftedMessenger
+                ref={(c) => this._GiftedMessenger = c}
+                styles={{
+                  container: {
+                    width: Dimensions.get('window').width,
+                  },
+                  text: {
+                    //backgroundColor: '#03a9f4',
+                    //color : 'white'
+                  },
+                  bubbleLeft: {
+                    backgroundColor: '#fff',
+                    marginRight: 70,
+                  },
+                  bubbleRight: {
+                    backgroundColor: '#007aff',
+                    marginLeft: 70,
+                  },
+                }}
+                autoFocus={false}
+                displayNames={true}
+                messages={messages}
+                handleSend={() => {}} //push message to json stack trace or locally save it
+                onErrorButtonPress={() => {}}
+                maxHeight={Dimensions.get('window').height - 90}
+                loadEarlierMessagesButton={false}
+                onLoadEarlierMessages={() => {}}
+                handleSend={(message,rowID)=> { this.handleSend(message,rowID); }}
+                senderName={this.props.rabbitmq.deviceInfo.uniqueID}
+                senderImage={null}
+                onImagePress={() => {}}
+                displayNames={true}
+                placeholder={''}
+                parseText={true}
+                handlePhonePress={() => {}}
+                handleUrlPress={() => {}}
+                handleEmailPress={() => {}}
+                isLoadingEarlierMessages={true}
+              />
             </Content>
           </Container>
           </Drawer>
         );
     }
 }
+const bindActions = (dispatch) => ({
+  rabbitSendMessage: message => dispatch(rabbitSendMessage(message)),
+});
+
+const mapStateToProps = (state) => {
+  return {
+    rabbitmq: state.rabbitmq,
+  }
+};
+
+export default connect(mapStateToProps, bindActions)(Chat);

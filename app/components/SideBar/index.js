@@ -75,6 +75,28 @@ export default class SideBar extends Component {
           </ListItem>
           <ListItem icon>
             <Left>
+              <Icon style={styles.iconSideBar} name="plane" />
+            </Left>
+            <Body>
+              <TouchableOpacity onPress={() => {this._handleNavigate('chat');}}>
+                <Text>Chat</Text>
+              </TouchableOpacity>
+            </Body>
+            <Right/>
+          </ListItem>
+          <ListItem icon>
+            <Left>
+              <Icon style={styles.iconSideBar} name="plane" />
+            </Left>
+            <Body>
+              <TouchableOpacity onPress={() => {this._handleNavigate('rabbitlog');}}>
+                <Text>Rabbit Logs</Text>
+              </TouchableOpacity>
+            </Body>
+            <Right/>
+          </ListItem>
+          <ListItem icon>
+            <Left>
               <Icon style={styles.iconSideBar} name="person" />
             </Left>
             <Body>

@@ -1,6 +1,6 @@
 {
 	"name": "RMChatApp",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
@@ -11,11 +11,25 @@
 	},
 	"dependencies": {
 		"@expo/ex-navigation": "^3.0.0",
+		"apisauce": "^0.14.0",
+		"is-json": "^2.0.1",
+		"lodash": "^4.17.4",
+		"moment": "^2.18.1",
 		"native-base": "^2.3.1",
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.46.4",
+		"react-native-device-info": "^0.10.2",
 		"react-native-easy-grid": "^0.1.15",
+		"react-native-gifted-chat": "^0.2.5",
+		"react-native-gifted-messenger": "^0.1.4",
 		"react-native-rabbitmq": "https://github.com/kreactnative/react-native-rabbitmq.git",
+		"react-redux": "^5.0.5",
+		"redux": "^3.7.2",
+		"redux-api-middleware": "^1.0.3",
+		"redux-logger": "^3.0.6",
+		"redux-persist": "^4.8.2",
+		"redux-thunk": "^2.2.0",
+		"remote-redux-devtools": "^0.5.12",
 		"rn-viewpager": "^1.2.3"
 	},
 	"devDependencies": {
@@ -23,7 +37,9 @@
 		"babel-preset-react-native": "2.1.0",
 		"babel-preset-react-native-stage-0": "^1.0.1",
 		"jest": "20.0.4",
-		"react-test-renderer": "16.0.0-alpha.12"
+		"react-test-renderer": "16.0.0-alpha.12",
+		"remote-redux-devtools-on-debugger": "^0.8.2",
+		"remotedev-server": "^0.2.3"
 	},
 	"jest": {
 		"preset": "react-native"
