@@ -75,6 +75,8 @@ class Chat extends Component {
             position: (messageServer.uniqueId!=userId && messageServer.type!=1) ? 'left' : messageServer.position,
             date: moment(messageServer.createAt,'YYYY-MM-DD HH:mm:ss').toDate(),
             uniqueId: messageServer.uniqueId,
+            name:  messageServer.uniqueId,
+            image: {uri: 'https://facebook.github.io/react/img/logo_og.png'},
           }
 
           messages.push(message);
@@ -108,8 +110,12 @@ class Chat extends Component {
                   container: {
                     width: Dimensions.get('window').width,
                   },
+                  text: {
+                    //backgroundColor: '#03a9f4',
+                    //color : 'white'
+                  },
                   bubbleLeft: {
-                    backgroundColor: '#e6e6eb',
+                    backgroundColor: '#fff',
                     marginRight: 70,
                   },
                   bubbleRight: {
@@ -118,6 +124,7 @@ class Chat extends Component {
                   },
                 }}
                 autoFocus={false}
+                displayNames={true}
                 messages={messages}
                 handleSend={() => {}} //push message to json stack trace or locally save it
                 onErrorButtonPress={() => {}}
@@ -125,7 +132,7 @@ class Chat extends Component {
                 loadEarlierMessagesButton={false}
                 onLoadEarlierMessages={() => {}}
                 handleSend={(message,rowID)=> { this.handleSend(message,rowID); }}
-                senderName="Becky"
+                senderName={this.props.rabbitmq.deviceInfo.uniqueID}
                 senderImage={null}
                 onImagePress={() => {}}
                 displayNames={true}
@@ -134,7 +141,7 @@ class Chat extends Component {
                 handlePhonePress={() => {}}
                 handleUrlPress={() => {}}
                 handleEmailPress={() => {}}
-                isLoadingEarlierMessages={false}
+                isLoadingEarlierMessages={true}
               />
             </Content>
           </Container>

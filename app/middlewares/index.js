@@ -30,7 +30,7 @@ console.log("Device Info", device);
 
 // 128.199.250.80
 const config = {
-  host: '128.199.250.80',
+  host: '192.168.1.3',
   port: 5672,
   username: 'admin',
   password: '56255625',
@@ -122,7 +122,7 @@ export default function(store) {
       routing_key: routing_key,
       message: 'queueId : ' + queueId + ' is online',
       createAt: now,
-      position: 'center'
+      position: 'left',
     };
 
 
