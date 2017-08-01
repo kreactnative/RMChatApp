@@ -25,7 +25,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 
 import { rabbitSendMessage } from '../../actions/rabbitmq';
-import { json2Str, str2Json } from '../../util';
+import { json2Str, str2Json, avatars } from '../../util';
 
 import SideBar from '../../components/SideBar';
 
@@ -46,13 +46,15 @@ class Chat extends Component {
     }
     handleSend(message = {}, rowID = null) {
      console.log(message,rowID);
+     const queueId=this.props.rabbitmq.deviceInfo.uniqueID;
      const now = moment().format();
      const rabbitMessage={
        type: 2,
        message : message.text,
        position : 'right',
        createAt: now,
-       uniqueId: this.props.rabbitmq.deviceInfo.uniqueID,
+       avatar : (avatars[queueId]) ? avatars[queueId]: 'http://img1.jurko.net/avatar_6736.gif',
+       uniqueId: queueId,
      }
      //console.log(this.props);
      this.props.rabbitSendMessage(json2Str(rabbitMessage));
@@ -76,7 +78,7 @@ class Chat extends Component {
             date: moment(messageServer.createAt,'YYYY-MM-DD HH:mm:ss').toDate(),
             uniqueId: messageServer.uniqueId,
             name:  messageServer.uniqueId,
-            image: {uri: 'https://facebook.github.io/react/img/logo_og.png'},
+            image: {uri: messageServer.avatar},
           }
 
           messages.push(message);

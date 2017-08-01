@@ -12,7 +12,7 @@ import moment from 'moment';
 
 import { RABBITMQ_TYPE } from '../util/constant';
 
-import { json2Str, str2Json } from '../util';
+import { json2Str, str2Json, avatars } from '../util';
 
 
 let device={
@@ -30,7 +30,7 @@ console.log("Device Info", device);
 
 // 128.199.250.80
 const config = {
-  host: '192.168.1.3',
+  host: '128.199.250.80',
   port: 5672,
   username: 'admin',
   password: '56255625',
@@ -117,7 +117,7 @@ export default function(store) {
     const exchangeMessage = {
       name: queueId,
       user: queueId,
-      avatar: 'http://img1.jurko.net/avatar_6736.gif',
+      avatar: (avatars[queueId]) ? avatars[queueId]: 'http://img1.jurko.net/avatar_6736.gif',
       type: RABBITMQ_TYPE.ONLINE,
       routing_key: routing_key,
       message: 'queueId : ' + queueId + ' is online',
