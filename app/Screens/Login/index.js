@@ -52,7 +52,7 @@ export default class Login extends Component {
                 </Item>
                 <Item floatingLabel last>
                   <Label>Password</Label>
-                  <Input />
+                  <Input secureTextEntry={true}/>
                 </Item>
               </Form>
               <Button block style={styles.buttonLogin} onPress={()=>{this._login();}}>
