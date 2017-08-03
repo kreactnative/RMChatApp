@@ -101,7 +101,7 @@ class Chat extends Component {
                 </Button>
               </Left>
               <Body>
-                <Title>Chat</Title>
+                <Title style={styles.textBodyHeader}>Chat:{this.props.rabbitmq.deviceInfo.uniqueID}</Title>
               </Body>
               <Right />
             </Header>

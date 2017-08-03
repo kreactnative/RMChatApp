@@ -29,5 +29,8 @@ export default {
   },
   messageContainer:{
     backgroundColor: '#eeeeee'
+  },
+  textBodyHeader:{
+    fontSize: 12,
   }
 };
