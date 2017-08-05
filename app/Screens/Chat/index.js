@@ -52,9 +52,10 @@ class Chat extends Component {
        type: 2,
        message : message.text,
        position : 'right',
+       name: queueId,
        createAt: now,
        avatar : (avatars[queueId]) ? avatars[queueId]: 'http://img1.jurko.net/avatar_6736.gif',
-       uniqueId: queueId,
+       uniqueId: (+new Date + ''),
      }
      //console.log(this.props);
      this.props.rabbitSendMessage(json2Str(rabbitMessage));
@@ -71,13 +72,14 @@ class Chat extends Component {
         const userId=this.props.rabbitmq.deviceInfo.uniqueID;
         this.props.rabbitmq.publicMessages.map((d, i) => {
           const messageServer=str2Json(d);
-
+          //console.log(messageServer);
           let message={
+            _id: i,
             text: messageServer.message,
-            position: (messageServer.uniqueId!=userId && messageServer.type!=1) ? 'left' : messageServer.position,
+            position: (messageServer.name!=userId && messageServer.type!=1) ? 'left' : messageServer.position,
             date: moment(messageServer.createAt,'YYYY-MM-DD HH:mm:ss').toDate(),
             uniqueId: messageServer.uniqueId,
-            name:  messageServer.uniqueId,
+            name:  messageServer.name,
             image: {uri: messageServer.avatar},
           }
 

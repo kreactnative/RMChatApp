@@ -10,9 +10,9 @@ import startRabbitMq, { rabbitmqMiddleware } from '../middlewares';
 export default function configureStore(onCompletion:()=>void):any {
   const enhancer = compose(
     applyMiddleware(rabbitmqMiddleware, thunk, promise),
-    devTools({
-      name: 'rm-chat-app', realtime: true,
-    }),
+    //devTools({
+      //name: 'rm-chat-app', realtime: true,
+    //}),
   );
 
   const store = createStore(reducer, enhancer);

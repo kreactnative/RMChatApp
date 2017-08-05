@@ -43,14 +43,21 @@ let exchange;
 let queueId = device.uniqueID || (+new Date + '');
 console.log(queueId);
 let connected = false;
+let routing_key = queueId;// 'react-native-queue';
+let exchange_name = 'react-native-exchange';
+let properties = {
+  expiration: 10000,
+}
 
 export function rabbitmqMiddleware(store) {
   return next => action => {
     if (connection && exchange && queue && action.type === actions.RABBITMQ_SEND_MESSAGE) {
-        let routing_key = queue.name;//'react-native-queue';
-  			let exchange_name = 'react-native-exchange';
-        console.log(routing_key);
+        //let routing_key = queue.name;//'react-native-queue';
+  			//let exchange_name = 'react-native-exchange';
+        //console.log(routing_key);
   			queue.publish(action.payload, exchange_name, routing_key)
+        console.log(exchange);
+        exchange.publish(action.payload, queueId, properties);
     }
 
     return next(action);
@@ -86,7 +93,7 @@ export default function(store) {
       }
     });
     exchange = new Exchange(connection, {
-      name: 'react-native-exchange',
+      name: exchange_name,
       type: 'fanout',
       durable: false,
       autoDelete: false,
@@ -103,14 +110,10 @@ export default function(store) {
     });
 
     queue.on('messages', (data) => {
-      //console.log('messages', data);
+      console.log('messages', data);
       //store.dispatch(actions.rabbitMessages(data));
     });
-    let routing_key = 'react-native-queue';
 
-    let properties = {
-      expiration: 10000,
-    }
 
     const now = moment().format('YYYY-MM-DD HH:mm:ss');
     // First Join Message;
@@ -119,7 +122,7 @@ export default function(store) {
       user: queueId,
       avatar: (avatars[queueId]) ? avatars[queueId]: 'http://img1.jurko.net/avatar_6736.gif',
       type: RABBITMQ_TYPE.ONLINE,
-      routing_key: routing_key,
+      uniqueId: (+new Date + ''),
       message: 'queueId : ' + queueId + ' is online',
       createAt: now,
       position: 'left',
