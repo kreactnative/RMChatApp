@@ -28,7 +28,7 @@ export default {
     justifyContent:'center',
   },
   messageContainer:{
-    backgroundColor: '#eeeeee'
+    backgroundColor: '#ecf0f1'
   },
   textBodyHeader:{
     fontSize: 12,

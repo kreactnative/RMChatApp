@@ -28,9 +28,10 @@ let device={
 };
 console.log("Device Info", device);
 
-// 128.199.250.80
+// 174.138.24.113
+// 192.168.1.2
 const config = {
-  host: '128.199.250.80',
+  host: '174.138.24.113',
   port: 5672,
   username: 'admin',
   password: '56255625',

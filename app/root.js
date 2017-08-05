@@ -56,7 +56,7 @@ class RmChatApp extends Component {
           <View style={{ flex: 1 }}>
             <StatusBar barStyle="light-content"/>
             <NavigationProvider router={Router}>
-              <StackNavigation initialRoute={Router.getRoute('chat') } />
+              <StackNavigation initialRoute={Router.getRoute('login') } />
             </NavigationProvider>
           </View>
         </StyleProvider>

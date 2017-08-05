@@ -119,7 +119,7 @@ class Chat extends Component {
                     //color : 'white'
                   },
                   bubbleLeft: {
-                    backgroundColor: '#fff',
+                    backgroundColor: '#ffffff',
                     marginRight: 70,
                   },
                   bubbleRight: {
@@ -139,7 +139,7 @@ class Chat extends Component {
                 senderName={this.props.rabbitmq.deviceInfo.uniqueID}
                 senderImage={null}
                 onImagePress={() => {}}
-                displayNames={true}
+                submitOnReturn={true}
                 placeholder={''}
                 parseText={true}
                 handlePhonePress={() => {}}
