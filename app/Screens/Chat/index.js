@@ -114,10 +114,6 @@ class Chat extends Component {
                   container: {
                     width: Dimensions.get('window').width,
                   },
-                  text: {
-                    //backgroundColor: '#03a9f4',
-                    //color : 'white'
-                  },
                   bubbleLeft: {
                     backgroundColor: '#ffffff',
                     marginRight: 70,

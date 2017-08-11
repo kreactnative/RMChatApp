@@ -6,7 +6,7 @@ import {
   StatusBar
 } from 'react-native';
 
-import { StyleProvider } from 'native-base';
+import { StyleProvider, Root } from 'native-base';
 
 import {
   createRouter,
@@ -53,12 +53,14 @@ class RmChatApp extends Component {
     return (
       <Provider store={ store }>
         <StyleProvider style={getTheme(platform)}>
-          <View style={{ flex: 1 }}>
-            <StatusBar barStyle="light-content"/>
-            <NavigationProvider router={Router}>
-              <StackNavigation initialRoute={Router.getRoute('login') } />
-            </NavigationProvider>
-          </View>
+          <Root>
+            <View style={{ flex: 1 }}>
+              <StatusBar barStyle="light-content"/>
+              <NavigationProvider router={Router}>
+                <StackNavigation initialRoute={Router.getRoute('login') } />
+              </NavigationProvider>
+            </View>
+          </Root>
         </StyleProvider>
       </Provider>
     );

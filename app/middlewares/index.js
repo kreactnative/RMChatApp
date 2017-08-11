@@ -31,7 +31,7 @@ console.log("Device Info", device);
 // 174.138.24.113
 // 192.168.1.2
 const config = {
-  host: '174.138.24.113',
+  host: 'amqp.dotnetnat.biz',
   port: 5672,
   username: 'admin',
   password: '56255625',
